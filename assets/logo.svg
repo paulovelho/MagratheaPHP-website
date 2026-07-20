@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <!-- Definitions for gradients and shadows -->
+  <defs>
+    <!-- Sphere background gradient -->
+    <radialGradient id="sphereGrad" cx="35%" cy="30%" r="75%">
+      <stop offset="0%" stop-color="#b07a2a" />
+      <stop offset="50%" stop-color="#734a11" />
+      <stop offset="100%" stop-color="#301c03" />
+    </radialGradient>
+
+    <!-- M face gradient (bright orange-gold) -->
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbc02d" />
+      <stop offset="50%" stop-color="#f57c00" />
+      <stop offset="100%" stop-color="#e65100" />
+    </linearGradient>
+
+    <!-- M side/extrusion gradient -->
+    <linearGradient id="shadowGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#a66200" />
+      <stop offset="100%" stop-color="#593100" />
+    </linearGradient>
+
+    <!-- Sphere shadow -->
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000" flood-opacity="0.5" />
+    </filter>
+  </defs>
+
+  <!-- Sphere base -->
+  <circle cx="100" cy="100" r="90" fill="url(#sphereGrad)" filter="url(#shadow)" stroke="#1a0f02" stroke-width="2" />
+
+  <!-- The M carving side/depth (brown shadow outlines to give 3D effect) -->
+  <path d="M 46,180 
+           C 28,150 20,115 24,76 
+           C 26,56 31,41 38,28 
+           L 64,48 
+           C 54,64 48,84 50,110 
+           C 52,130 56,145 61,162 
+           Z" 
+        fill="url(#shadowGrad)" stroke="#1a0f02" stroke-width="2.5" stroke-linejoin="round" />
+
+  <path d="M 64,48 
+           C 74,34 86,22 100,18
+           L 100,32
+           C 90,36 80,48 74,62
+           Z" 
+        fill="url(#shadowGrad)" stroke="#1a0f02" stroke-width="2" stroke-linejoin="round" />
+
+  <!-- Main Gold 'M' Crust wrapping the sphere -->
+  <!-- Left stem, center dip, right stem, curved bottom -->
+  <path d="M 40,30 
+           C 54,16 75,8 100,8
+           C 125,8 146,16 160,30
+           C 178,54 186,85 180,118
+           C 174,150 152,178 120,188
+           C 107,192 85,192 72,188
+           C 60,184 54,174 54,162
+           C 54,152 50,136 46,114
+           C 42,94 48,74 58,54
+           L 74,66
+           C 66,80 62,96 66,110
+           C 70,122 74,136 78,148
+           C 82,158 92,166 104,166
+           C 114,166 124,158 132,146
+           C 142,130 152,106 152,80
+           C 152,68 148,58 140,50
+           C 134,44 126,42 118,48
+           C 110,54 104,66 100,78
+           C 96,66 90,54 82,48
+           C 76,42 68,44 62,50
+           L 40,30 Z" 
+        fill="url(#goldGrad)" stroke="#1a0f02" stroke-width="3" stroke-linejoin="round" />
+
+  <!-- Inner details / highlights to make it pop -->
+  <path d="M 45,34 C 57,22 75,14 100,14" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity="0.4" />
+  <path d="M 120,182 C 145,172 165,148 172,118" fill="none" stroke="#000" stroke-width="2" opacity="0.3" />
+</svg>

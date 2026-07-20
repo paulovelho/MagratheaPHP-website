@@ -1,0 +1,810 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MagratheaPHP — The Planet Builder PHP Framework</title>
+    <!-- Tailwind CSS v4 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="icon" type="image/png" href="assets/logo.png" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: #050608;
+      }
+      .font-mono {
+        font-family: 'JetBrains Mono', monospace;
+      }
+    </style>
+  </head>
+  <body class="text-gray-100 min-h-screen relative overflow-x-hidden selection:bg-cyan-500/30 selection:text-cyan-200">
+    
+    <!-- Background Grid and Glows -->
+    <div class="fixed inset-0 pointer-events-none z-0">
+      <div class="absolute top-[-10%] right-[-10%] w-[600px] h-[600px] bg-blue-600/5 rounded-full blur-[140px]"></div>
+      <div class="absolute bottom-[20%] left-[-10%] w-[500px] h-[500px] bg-purple-600/5 rounded-full blur-[120px]"></div>
+      <div class="absolute top-[40%] left-[40%] w-[800px] h-[800px] bg-cyan-600/5 rounded-full blur-[180px]"></div>
+      <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:50px_50px]"></div>
+    </div>
+
+    <!-- Header Navigation -->
+    <header class="relative z-10 border-b border-white/5 bg-black/40 backdrop-blur-md">
+      <div class="max-w-7xl mx-auto px-6 sm:px-12 py-4 flex items-center justify-between">
+        <a href="#" class="flex items-center gap-3.5 group">
+          <div class="w-11 h-11 transition-transform duration-300 group-hover:rotate-12">
+            <img src="assets/logo.png" alt="Magrathea Logo" class="w-full h-full" referrerpolicy="no-referrer" />
+          </div>
+          <div class="flex flex-col leading-none">
+            <span class="text-2xl font-extrabold tracking-tight text-white group-hover:text-cyan-400 transition-colors">
+              MAGRATHEA<span class="text-cyan-400">PHP</span>
+            </span>
+            <span class="text-[9px] text-gray-500 uppercase tracking-widest mt-1 font-mono font-semibold">v2.0 Framework</span>
+          </div>
+        </a>
+
+        <nav class="hidden md:flex items-center gap-8 text-sm font-medium tracking-wide">
+          <a href="#features" class="text-white/70 hover:text-cyan-400 transition-colors">Core Features</a>
+          <a href="#admin" class="text-white/70 hover:text-cyan-400 transition-colors">Visual Admin</a>
+          <a href="#benchmarks" class="text-white/70 hover:text-cyan-400 transition-colors">Benchmarks</a>
+          <a href="#get-started" class="text-white/70 hover:text-cyan-400 transition-colors font-mono">composer require...</a>
+          <a href="https://www.platypusweb.com.br/magratheaphp2/docs/" target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-all hover:border-cyan-500/30 text-white flex items-center gap-1.5">
+            Docs <span class="material-icons text-sm">open_in_new</span>
+          </a>
+          <a href="https://github.com/PlatypusTechnology/MagratheaPHP2" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 px-4 py-2 bg-cyan-500 text-black font-bold rounded-lg hover:bg-cyan-400 transition-all shadow-[0_0_15px_rgba(6,182,212,0.3)] hover:shadow-[0_0_25px_rgba(6,182,212,0.5)]">
+            <span>GitHub</span>
+            <span class="material-icons text-base">code</span>
+          </a>
+        </nav>
+
+        <!-- Mobile Nav Trigger -->
+        <button id="mobile-menu-btn" class="md:hidden flex items-center justify-center p-2 rounded-lg text-white/70 hover:text-cyan-400 hover:bg-white/5">
+          <span class="material-icons" id="menu-icon">menu</span>
+        </button>
+      </div>
+
+      <!-- Mobile Navigation Drawer -->
+      <div id="mobile-menu" class="hidden md:hidden border-b border-white/5 bg-[#08090d]/95 backdrop-blur-lg px-6 py-6 space-y-4">
+        <a href="#features" class="block text-white/70 hover:text-cyan-400 py-2 border-b border-white/5 transition-colors">Core Features</a>
+        <a href="#admin" class="block text-white/70 hover:text-cyan-400 py-2 border-b border-white/5 transition-colors">Visual Admin</a>
+        <a href="#benchmarks" class="block text-white/70 hover:text-cyan-400 py-2 border-b border-white/5 transition-colors">Benchmarks</a>
+        <a href="#get-started" class="block text-white/70 hover:text-cyan-400 py-2 border-b border-white/5 transition-colors font-mono">Composer Install</a>
+        <div class="flex gap-4 pt-4">
+          <a href="https://www.platypusweb.com.br/magratheaphp2/docs/" target="_blank" rel="noopener noreferrer" class="flex-1 text-center py-2.5 bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-all text-white flex items-center justify-center gap-1">
+            Docs <span class="material-icons text-sm">open_in_new</span>
+          </a>
+          <a href="https://github.com/PlatypusTechnology/MagratheaPHP2" target="_blank" rel="noopener noreferrer" class="flex-1 text-center py-2.5 bg-cyan-500 text-black font-bold rounded-lg hover:bg-cyan-400 transition-all flex items-center justify-center gap-1.5">
+            <span>GitHub</span>
+            <span class="material-icons text-base">code</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative z-10 max-w-7xl mx-auto px-6 sm:px-12 pt-16 pb-24 lg:pt-24 lg:pb-32 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+      <div class="lg:col-span-7 space-y-8">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-cyan-500/30 bg-cyan-500/5 text-cyan-400 text-xs font-semibold tracking-wider uppercase">
+          <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
+          Planetary-Scale Performance
+        </div>
+        <h1 class="text-5xl sm:text-7xl font-black leading-[1.05] tracking-tight text-white">
+          Build your <br/><span class="bg-clip-text text-transparent bg-gradient-to-r from-white via-cyan-200 to-blue-400">universe.</span>
+        </h1>
+        <p class="text-lg sm:text-xl text-gray-400 max-w-xl leading-relaxed font-light">
+          The most elegant, minimalist PHP framework designed for architects who demand extreme performance, modern database mapping, and rapid visual code generation without the boilerplate bloat.
+        </p>
+        
+        <div class="flex flex-wrap gap-4 pt-2">
+          <a href="#get-started" class="px-6 py-3.5 bg-cyan-500 text-black font-bold rounded-xl hover:bg-cyan-400 transition-all flex items-center gap-2 shadow-[0_0_20px_rgba(6,182,212,0.25)] hover:shadow-[0_0_35px_rgba(6,182,212,0.45)]">
+            <span>Get Started</span>
+            <span class="material-icons">arrow_forward</span>
+          </a>
+          <a href="https://www.platypusweb.com.br/magratheaphp2/docs/" target="_blank" rel="noopener noreferrer" class="px-6 py-3.5 bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 transition-all text-white flex items-center gap-2">
+            <span>Read Documentation</span>
+            <span class="material-icons">description</span>
+          </a>
+        </div>
+
+        <div class="flex gap-8 pt-6 border-t border-white/5 max-w-lg">
+          <div class="flex flex-col">
+            <span class="text-3xl sm:text-4xl font-mono font-bold text-white tracking-tight">0.8ms</span>
+            <span class="text-[10px] text-gray-500 uppercase font-mono tracking-widest mt-1">Request Latency</span>
+          </div>
+          <div class="w-px h-12 bg-white/10 self-center"></div>
+          <div class="flex flex-col">
+            <span class="text-3xl sm:text-4xl font-mono font-bold text-white tracking-tight">1.2MB</span>
+            <span class="text-[10px] text-gray-500 uppercase font-mono tracking-widest mt-1">Memory Footprint</span>
+          </div>
+          <div class="w-px h-12 bg-white/10 self-center"></div>
+          <div class="flex flex-col">
+            <span class="text-3xl sm:text-4xl font-mono font-bold text-white tracking-tight">Zero</span>
+            <span class="text-[10px] text-gray-500 uppercase font-mono tracking-widest mt-1">Boilerplate</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Code Window Mockup -->
+      <div class="lg:col-span-5 relative">
+        <!-- Glow Effect Behind Window -->
+        <div class="absolute -inset-1.5 bg-gradient-to-r from-cyan-500/25 to-purple-500/25 rounded-2xl blur-2xl opacity-75 -z-10 animate-pulse" style="animation-duration: 8s;"></div>
+        
+        <!-- Code Window Card -->
+        <div class="w-full bg-[#0c0d11] border border-white/10 rounded-2xl shadow-2xl overflow-hidden backdrop-blur-md">
+          <!-- Window Header / Tabs -->
+          <div class="flex items-center justify-between px-5 py-3.5 bg-[#12141a] border-b border-white/5">
+            <div class="flex items-center gap-2">
+              <div class="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
+              <div class="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
+              <div class="w-3 h-3 rounded-full bg-[#27c93f]"></div>
+            </div>
+            <!-- Interactive Tabs -->
+            <div class="flex gap-2">
+              <button onclick="switchCodeTab('routing')" id="tab-btn-routing" class="code-tab-btn active px-3 py-1 rounded text-xs font-mono font-medium text-cyan-400 bg-white/5 border border-cyan-500/20">index.php</button>
+              <button onclick="switchCodeTab('config')" id="tab-btn-config" class="code-tab-btn px-3 py-1 rounded text-xs font-mono font-medium text-gray-400 hover:text-white transition-colors">magrathea.conf</button>
+              <button onclick="switchCodeTab('orm')" id="tab-btn-orm" class="code-tab-btn px-3 py-1 rounded text-xs font-mono font-medium text-gray-400 hover:text-white transition-colors">PlanetModel.php</button>
+            </div>
+          </div>
+          
+          <!-- Code Blocks -->
+          <div class="p-6 sm:p-8 font-mono text-xs sm:text-sm leading-relaxed overflow-x-auto min-h-[280px]">
+            <!-- Routing Code -->
+            <div id="code-routing" class="code-block space-y-1">
+              <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right">1</span><span class="text-purple-400">&lt;?php</span></div>
+              <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right">2</span><span class="text-purple-400">use</span> <span class="text-blue-300">Magrathea\Magrathea</span>;</div>
+              <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right">3</span><span></span></div>
+              <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right">4</span><span class="text-blue-400">$app</span> = <span class="text-purple-400">new</span> <span class="text-yellow-200">Magrathea</span>();</div>
+              <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right">5</span><span></span></div>
+              <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right">6</span><span class="text-gray-500">// Easily build elegant, fast routes</span></div>
+              <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right">7</span><span class="text-blue-400">$app</span>-&gt;<span class="text-emerald-400">route</span>(<span class="text-orange-300">'/'</span>, <span class="text-purple-400">function</span>() {</div>
+              <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right">8</span><span class="text-purple-400">&nbsp;&nbsp;&nbsp;&nbsp;return</span> <span class="text-orange-300">"Planets built by Magrathea."</span>;</div>
+              <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right">9</span><span>});</span></div>
+              <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right">10</span><span></span></div>
+              <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right">11</span><span class="text-blue-400">$app</span>-&gt;<span class="text-emerald-400">route</span>(<span class="text-orange-300">'/planet/:id'</span>, <span class="text-orange-300">'Planet@get'</span>);</div>
+              <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right">12</span><span class="text-blue-400">$app</span>-&gt;<span class="text-emerald-400">run</span>();</div>
+            </div>
+            
+            <!-- Config Code (Hidden) -->
+            <div id="code-config" class="code-block hidden space-y-1">
+              <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right">1</span><span class="text-amber-500">[development]</span></div>
+              <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right">2</span><span class="text-blue-300">db_host</span> = <span class="text-orange-300">"localhost"</span></div>
+              <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right">3</span><span class="text-blue-300">db_name</span> = <span class="text-orange-300">"magrathea_db"</span></div>
+              <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right">4</span><span class="text-blue-300">db_user</span> = <span class="text-orange-300">"root"</span></div>
+              <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right">5</span><span class="text-blue-300">db_pass</span> = <span class="text-orange-300">"root_password"</span></div>
+              <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right">6</span><span></span></div>
+              <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right">7</span><span class="text-amber-500">[production]</span></div>
+              <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right">8</span><span class="text-blue-300">db_host</span> = <span class="text-orange-300">"10.0.0.8"</span></div>
+              <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right">9</span><span class="text-blue-300">db_name</span> = <span class="text-orange-300">"magrathea_production"</span></div>
+              <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right">10</span><span class="text-blue-300">db_user</span> = <span class="text-orange-300">"prod_admin"</span></div>
+              <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right">11</span><span class="text-blue-300">db_pass</span> = <span class="text-orange-300">"m@gr@th3@_str0ng!"</span></div>
+            </div>
+            
+            <!-- ORM Code (Hidden) -->
+            <div id="code-orm" class="code-block hidden space-y-1">
+              <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right">1</span><span class="text-purple-400">&lt;?php</span></div>
+              <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right">2</span><span class="text-purple-400">class</span> <span class="text-yellow-200">Planet</span> <span class="text-purple-400">extends</span> <span class="text-blue-300">\Magrathea\MagratheaModel</span> {</div>
+              <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right">3</span><span class="text-purple-400">&nbsp;&nbsp;&nbsp;&nbsp;public</span> <span class="text-blue-400">$id</span>, <span class="text-blue-400">$name</span>, <span class="text-blue-400">$diameter</span>;</div>
+              <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right">4</span><span class="text-purple-400">&nbsp;&nbsp;&nbsp;&nbsp;protected static</span> <span class="text-blue-400">$dbTable</span> = <span class="text-orange-300">"planets"</span>;</div>
+              <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right">5</span><span>}</span></div>
+              <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right">6</span><span></span></div>
+              <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right">7</span><span class="text-gray-500">// Seamlessly execute Object queries</span></div>
+              <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right">8</span><span class="text-blue-400">$earth</span> = <span class="text-yellow-200">Planet</span>::<span class="text-emerald-400">Get</span>(<span class="text-amber-400">1</span>);</div>
+              <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right">9</span><span class="text-blue-400">$earth</span>-&gt;<span class="text-blue-300">name</span> = <span class="text-orange-300">"New Earth"</span>;</div>
+              <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right">10</span><span class="text-blue-400">$earth</span>-&gt;<span class="text-emerald-400">Save</span>();</div>
+              <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right">11</span><span></span></div>
+              <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right">12</span><span class="text-blue-400">$largePlanets</span> = <span class="text-yellow-200">Planet</span>::<span class="text-emerald-400">Query</span>()</div>
+              <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right">13</span>&nbsp;&nbsp;&nbsp;&nbsp;-&gt;<span class="text-emerald-400">Where</span>(<span class="text-orange-300">"diameter > 50000"</span>)</div>
+              <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right">14</span>&nbsp;&nbsp;&nbsp;&nbsp;-&gt;<span class="text-emerald-400">Run</span>();</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Core Features Section -->
+    <section id="features" class="relative z-10 border-t border-white/5 bg-[#08090d]/60 py-24 scroll-mt-20">
+      <div class="max-w-7xl mx-auto px-6 sm:px-12">
+        <div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
+          <span class="text-cyan-400 font-mono text-xs uppercase tracking-widest font-semibold">Engineered for perfection</span>
+          <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white">The Pillars of Magrathea</h2>
+          <p class="text-gray-400">Why architects choose Magrathea over heavy, bloated modern frameworks.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Feature 1 -->
+          <div class="group p-8 rounded-2xl bg-[#0c0d11] border border-white/5 hover:border-cyan-500/20 transition-all duration-300 relative overflow-hidden">
+            <div class="absolute -top-10 -right-10 w-24 h-24 bg-cyan-500/5 rounded-full blur-xl group-hover:bg-cyan-500/10 transition-colors"></div>
+            <div class="w-12 h-12 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-400 mb-6 group-hover:scale-110 transition-transform">
+              <span class="material-icons">lan</span>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3">Planetary-Scale ORM</h3>
+            <p class="text-gray-400 text-sm leading-relaxed">
+              Define entities and seamlessly link relational database tables to clean PHP objects. Save, query, and insert records with fluid methods.
+            </p>
+          </div>
+
+          <!-- Feature 2 -->
+          <div class="group p-8 rounded-2xl bg-[#0c0d11] border border-white/5 hover:border-purple-500/20 transition-all duration-300 relative overflow-hidden">
+            <div class="absolute -top-10 -right-10 w-24 h-24 bg-purple-500/5 rounded-full blur-xl group-hover:bg-purple-500/10 transition-colors"></div>
+            <div class="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-400 mb-6 group-hover:scale-110 transition-transform">
+              <span class="material-icons">dashboard_customize</span>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3">Visual Code Generator</h3>
+            <p class="text-gray-400 text-sm leading-relaxed">
+              Harness the power of the built-in Magrathea Admin console to visually inspect tables, config values, and auto-generate model classes.
+            </p>
+          </div>
+
+          <!-- Feature 3 -->
+          <div class="group p-8 rounded-2xl bg-[#0c0d11] border border-white/5 hover:border-blue-500/20 transition-all duration-300 relative overflow-hidden">
+            <div class="absolute -top-10 -right-10 w-24 h-24 bg-blue-500/5 rounded-full blur-xl group-hover:bg-blue-500/10 transition-colors"></div>
+            <div class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 mb-6 group-hover:scale-110 transition-transform">
+              <span class="material-icons">flash_on</span>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3">0.8ms Core Bootstrap</h3>
+            <p class="text-gray-400 text-sm leading-relaxed">
+              Boasting an incredibly lightweight core. Get database-connected responses served faster than standard framework lookup speeds.
+            </p>
+          </div>
+
+          <!-- Feature 4 -->
+          <div class="group p-8 rounded-2xl bg-[#0c0d11] border border-white/5 hover:border-emerald-500/20 transition-all duration-300 relative overflow-hidden">
+            <div class="absolute -top-10 -right-10 w-24 h-24 bg-emerald-500/5 rounded-full blur-xl group-hover:bg-emerald-500/10 transition-colors"></div>
+            <div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 mb-6 group-hover:scale-110 transition-transform">
+              <span class="material-icons">route</span>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3">Intuitive Smart Router</h3>
+            <p class="text-gray-400 text-sm leading-relaxed">
+              Define beautiful static paths or capture named variables. Seamless routing seamlessly delegates calls to fast Controller actions.
+            </p>
+          </div>
+
+          <!-- Feature 5 -->
+          <div class="group p-8 rounded-2xl bg-[#0c0d11] border border-white/5 hover:border-amber-500/20 transition-all duration-300 relative overflow-hidden">
+            <div class="absolute -top-10 -right-10 w-24 h-24 bg-amber-500/5 rounded-full blur-xl group-hover:bg-amber-500/10 transition-colors"></div>
+            <div class="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-400 mb-6 group-hover:scale-110 transition-transform">
+              <span class="material-icons">mail_outline</span>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3">SMTP Email Queue Engine</h3>
+            <p class="text-gray-400 text-sm leading-relaxed">
+              Don't block web requests with long connection times. Magrathea contains an integrated mail queue manager for database logged emails.
+            </p>
+          </div>
+
+          <!-- Feature 6 -->
+          <div class="group p-8 rounded-2xl bg-[#0c0d11] border border-white/5 hover:border-pink-500/20 transition-all duration-300 relative overflow-hidden">
+            <div class="absolute -top-10 -right-10 w-24 h-24 bg-pink-500/5 rounded-full blur-xl group-hover:bg-pink-500/10 transition-colors"></div>
+            <div class="w-12 h-12 rounded-xl bg-pink-500/10 flex items-center justify-center text-pink-400 mb-6 group-hover:scale-110 transition-transform">
+              <span class="material-icons">settings_suggest</span>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3">Environment Configs</h3>
+            <p class="text-gray-400 text-sm leading-relaxed">
+              Seamlessly swap database, logging, and performance behaviors across environments (`development`, `staging`, `production`) using standard `.ini` files.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Visual Admin Live Interactive Mockup Section -->
+    <section id="admin" class="relative z-10 py-24 scroll-mt-20">
+      <div class="max-w-7xl mx-auto px-6 sm:px-12">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div class="lg:col-span-4 space-y-6">
+            <span class="text-cyan-400 font-mono text-xs uppercase tracking-widest font-semibold">Zero-code database operations</span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">Visual Power of Magrathea Admin</h2>
+            <p class="text-gray-400 leading-relaxed font-light">
+              One of Magrathea's greatest attributes is its native, responsive administration console. Skip typing complex migration scripts. Update environments, map database tables to models, run SQL, and watch code output instantly.
+            </p>
+            <div class="space-y-4">
+              <div class="flex gap-3 items-start">
+                <span class="material-icons text-cyan-400 mt-0.5">check_circle</span>
+                <span class="text-sm text-gray-300">Point-and-click ORM database mapping</span>
+              </div>
+              <div class="flex gap-3 items-start">
+                <span class="material-icons text-cyan-400 mt-0.5">check_circle</span>
+                <span class="text-sm text-gray-300">Automated table structure and class generation</span>
+              </div>
+              <div class="flex gap-3 items-start">
+                <span class="material-icons text-cyan-400 mt-0.5">check_circle</span>
+                <span class="text-sm text-gray-300">Fast config edits with hot environment reload</span>
+              </div>
+            </div>
+            <div class="pt-2">
+              <a href="https://www.platypusweb.com.br/magratheaphp2/docs/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-cyan-400 font-mono text-sm hover:text-cyan-300 hover:underline">
+                Read Admin Console Guide <span class="material-icons text-sm">arrow_forward</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Interactive Mockup Screen -->
+          <div class="lg:col-span-8 relative">
+            <div class="absolute -inset-1.5 bg-gradient-to-r from-purple-500/20 to-blue-500/20 rounded-2xl blur-xl opacity-60 -z-10"></div>
+            
+            <div class="w-full bg-[#0a0b0f] border border-white/10 rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row h-[420px] md:h-[460px]">
+              <!-- Mockup Sidebar -->
+              <div class="w-full md:w-48 bg-[#101217] border-b md:border-b-0 md:border-r border-white/5 p-4 flex md:flex-col gap-1 overflow-x-auto md:overflow-x-visible shrink-0">
+                <div class="text-gray-500 text-[10px] uppercase font-mono tracking-widest px-2 pb-2 hidden md:block">ADMIN PANEL</div>
+                <button onclick="switchAdminTab('generator')" id="admin-btn-generator" class="admin-tab-btn active w-full text-left px-3 py-2 rounded-lg text-xs font-medium text-cyan-400 bg-cyan-400/5 flex items-center gap-2 border border-cyan-500/20 shrink-0">
+                  <span class="material-icons text-base">construction</span>
+                  <span>Model Generator</span>
+                </button>
+                <button onclick="switchAdminTab('terminal')" id="admin-btn-terminal" class="admin-tab-btn w-full text-left px-3 py-2 rounded-lg text-xs font-medium text-gray-400 hover:text-white flex items-center gap-2 transition-all shrink-0">
+                  <span class="material-icons text-base">terminal</span>
+                  <span>SQL Terminal</span>
+                </button>
+                <button onclick="switchAdminTab('logs')" id="admin-btn-logs" class="admin-tab-btn w-full text-left px-3 py-2 rounded-lg text-xs font-medium text-gray-400 hover:text-white flex items-center gap-2 transition-all shrink-0">
+                  <span class="material-icons text-base">receipt_long</span>
+                  <span>System Logs</span>
+                </button>
+              </div>
+
+              <!-- Mockup Workspace Content -->
+              <div class="flex-1 p-6 overflow-y-auto bg-[#0a0b0f]">
+                
+                <!-- Tab: Object Model Generator -->
+                <div id="admin-content-generator" class="admin-tab-content space-y-4">
+                  <div class="flex justify-between items-center pb-2 border-b border-white/5">
+                    <div>
+                      <h4 class="text-sm font-bold text-white font-mono">Table to Object Generator</h4>
+                      <p class="text-[10px] text-gray-500 mt-0.5">Map MySQL / PostgreSQL tables to PHP objects</p>
+                    </div>
+                    <span class="text-[9px] bg-cyan-500/10 text-cyan-400 px-2 py-0.5 rounded font-mono">v2.0 Beta</span>
+                  </div>
+
+                  <div class="space-y-2.5">
+                    <p class="text-xs text-gray-400">Select which tables to map into MagratheaModels:</p>
+                    <div class="space-y-1.5 font-mono text-xs max-h-[140px] overflow-y-auto border border-white/5 p-2 rounded bg-black/30">
+                      <label class="flex items-center gap-2.5 px-2 py-1 hover:bg-white/5 rounded cursor-pointer text-gray-300">
+                        <input type="checkbox" checked class="accent-cyan-400 rounded">
+                        <span>planets <span class="text-gray-500 text-[10px]">(relational)</span></span>
+                      </label>
+                      <label class="flex items-center gap-2.5 px-2 py-1 hover:bg-white/5 rounded cursor-pointer text-gray-300">
+                        <input type="checkbox" checked class="accent-cyan-400 rounded">
+                        <span>users <span class="text-gray-500 text-[10px]">(auth map)</span></span>
+                      </label>
+                      <label class="flex items-center gap-2.5 px-2 py-1 hover:bg-white/5 rounded cursor-pointer text-gray-300">
+                        <input type="checkbox" class="accent-cyan-400 rounded">
+                        <span>system_logs <span class="text-gray-500 text-[10px]">(generic)</span></span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="flex gap-3">
+                    <button onclick="simulateGenerate()" class="px-4 py-2 bg-cyan-500 hover:bg-cyan-400 text-black font-semibold text-xs rounded-lg transition-all flex items-center gap-1.5">
+                      <span class="material-icons text-sm">auto_awesome</span>
+                      <span>Generate Objects</span>
+                    </button>
+                  </div>
+
+                  <!-- Output Container for model creation -->
+                  <div id="generator-output" class="hidden animate-fadeIn p-3 rounded border border-cyan-500/20 bg-cyan-500/5 font-mono text-[10px] text-cyan-300 space-y-1.5">
+                    <div class="flex items-center gap-1.5 text-white font-bold text-[11px]">
+                      <span class="material-icons text-emerald-400 text-sm">check_circle</span>
+                      <span>Models Generated successfully!</span>
+                    </div>
+                    <div>Created file: <span class="text-white">models/Planet.php</span></div>
+                    <div>Created file: <span class="text-white">models/User.php</span></div>
+                    <div class="text-gray-500">Database schema config synced perfectly.</div>
+                  </div>
+                </div>
+
+                <!-- Tab: SQL Terminal -->
+                <div id="admin-content-terminal" class="admin-tab-content hidden space-y-4">
+                  <div class="flex justify-between items-center pb-2 border-b border-white/5">
+                    <div>
+                      <h4 class="text-sm font-bold text-white font-mono">SQL Query Analyzer</h4>
+                      <p class="text-[10px] text-gray-500 mt-0.5">Test database mappings and queries instantly</p>
+                    </div>
+                    <span class="text-[9px] bg-purple-500/10 text-purple-400 px-2 py-0.5 rounded font-mono">Active Connection</span>
+                  </div>
+
+                  <div class="space-y-3">
+                    <div class="flex flex-col gap-1.5">
+                      <label class="text-[10px] text-gray-400 font-mono">SELECT QUERY PRESET:</label>
+                      <select id="query-select" onchange="updateQueryPreset()" class="bg-[#12141a] border border-white/10 p-2 rounded text-xs text-white focus:outline-none focus:border-cyan-500 font-mono">
+                        <option value="select">SELECT * FROM planets ORDER BY id DESC LIMIT 2;</option>
+                        <option value="count">SELECT COUNT(*) as total_users FROM users;</option>
+                        <option value="error">SELECT * FROM non_existent_table;</option>
+                      </select>
+                    </div>
+
+                    <button onclick="simulateQueryRun()" class="px-4 py-2 bg-purple-500 hover:bg-purple-400 text-white font-semibold text-xs rounded-lg transition-all flex items-center gap-1.5">
+                      <span class="material-icons text-sm">play_arrow</span>
+                      <span>Execute Query</span>
+                    </button>
+                  </div>
+
+                  <div id="terminal-output" class="font-mono text-[10px] rounded border border-white/5 p-3 bg-black/40 min-h-[80px] flex flex-col justify-center">
+                    <span class="text-gray-500 text-center">Click "Execute Query" to analyze output...</span>
+                  </div>
+                </div>
+
+                <!-- Tab: System Logs -->
+                <div id="admin-content-logs" class="admin-tab-content hidden space-y-4">
+                  <div class="flex justify-between items-center pb-2 border-b border-white/5">
+                    <div>
+                      <h4 class="text-sm font-bold text-white font-mono">Magrathea System Logs</h4>
+                      <p class="text-[10px] text-gray-500 mt-0.5">Real-time developer log tracking</p>
+                    </div>
+                    <div class="flex items-center gap-1.5">
+                      <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-ping"></span>
+                      <span class="text-[9px] text-gray-500 font-mono">STREAMING</span>
+                    </div>
+                  </div>
+
+                  <div class="font-mono text-[10px] rounded border border-white/5 p-4 bg-black/50 space-y-2 h-[200px] overflow-y-auto" id="logs-terminal">
+                    <div class="text-gray-500">[2026-07-20 09:42:01] Magrathea Config parsed successfully. Env: [development]</div>
+                    <div class="text-cyan-400">[2026-07-20 09:42:01] SQL Connection initialized to localhost:3306</div>
+                    <div class="text-gray-500">[2026-07-20 09:42:02] Autoloader mapped 14 active classes correctly.</div>
+                    <div class="text-purple-400">[2026-07-20 09:42:05] Router Match: GET '/' mapped to Home@index</div>
+                    <div class="text-gray-500">[2026-07-20 09:42:05] Controller rendered template view in 0.22ms</div>
+                    <div class="text-amber-400">[2026-07-20 09:42:12] Mail Queue Daemon started on background process.</div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Framework Benchmarks Section -->
+    <section id="benchmarks" class="relative z-10 border-t border-white/5 bg-[#08090d]/60 py-24 scroll-mt-20">
+      <div class="max-w-7xl mx-auto px-6 sm:px-12">
+        <div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
+          <span class="text-cyan-400 font-mono text-xs uppercase tracking-widest font-semibold">Real-world performance</span>
+          <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white">Lightyears Ahead in Speed</h2>
+          <p class="text-gray-400">Comparing Magrathea to legacy industry frameworks in standard container benchmarks.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <!-- Interactive slider selection -->
+          <div class="space-y-8">
+            <div class="space-y-4">
+              <h3 class="text-2xl font-bold text-white">Compare Metrics</h3>
+              <p class="text-gray-400 text-sm leading-relaxed">
+                Most PHP frameworks force you to choose between feature volume or core request velocity. Magrathea’s smart autoloader, unified `.ini` system, and ultra-compact ORM allow you to deliver lightning-fast responses with massive capability.
+              </p>
+            </div>
+
+            <!-- Tab Buttons to swap graph perspective -->
+            <div class="flex gap-3 bg-[#111319] p-1 border border-white/5 rounded-xl max-w-xs">
+              <button onclick="toggleBenchmarkMode('latency')" id="btn-bench-latency" class="flex-1 text-center py-2 rounded-lg text-xs font-mono font-bold text-black bg-cyan-400 transition-all">
+                Request Latency
+              </button>
+              <button onclick="toggleBenchmarkMode('memory')" id="btn-bench-memory" class="flex-1 text-center py-2 rounded-lg text-xs font-mono font-medium text-gray-400 hover:text-white transition-all">
+                Memory Used
+              </button>
+            </div>
+
+            <!-- Informational card detailing the hardware -->
+            <div class="p-5 rounded-xl border border-white/5 bg-black/20 space-y-2">
+              <div class="flex gap-1.5 items-center text-xs font-semibold text-white">
+                <span class="material-icons text-cyan-400 text-sm">info</span>
+                <span>Testing Environment details:</span>
+              </div>
+              <p class="text-xs text-gray-500 leading-relaxed font-mono">
+                Running PHP 8.2 (OPcache enabled), Nginx on Debian Container, 1 vCPU, 512MB RAM. Standard CRUD request retrieving 5 objects and returning JSON.
+              </p>
+            </div>
+          </div>
+
+          <!-- The Animated Graph -->
+          <div class="p-8 rounded-2xl border border-white/10 bg-[#0c0d12] shadow-xl relative overflow-hidden space-y-8">
+            <div class="absolute inset-0 bg-radial-gradient(ellipse at bottom, rgba(6,182,212,0.03), transparent) pointer-events-none"></div>
+
+            <div class="flex justify-between items-center border-b border-white/5 pb-4">
+              <span class="text-xs font-mono font-bold text-white uppercase tracking-wider" id="graph-title-label">REQUEST LATENCY (LOWER IS BETTER)</span>
+              <span class="text-[10px] bg-cyan-500/10 text-cyan-400 px-2 py-0.5 rounded font-mono font-bold">ms (Milliseconds)</span>
+            </div>
+
+            <!-- Bars container -->
+            <div class="space-y-6">
+              <!-- Magrathea -->
+              <div class="space-y-2">
+                <div class="flex justify-between text-xs font-semibold">
+                  <span class="text-white flex items-center gap-1.5">
+                    <img src="assets/logo.png" alt="logo" class="w-4 h-4" />
+                    <span>MagratheaPHP v2</span>
+                  </span>
+                  <span class="text-cyan-400 font-mono font-bold" id="magrathea-val-label">0.8 ms</span>
+                </div>
+                <div class="w-full h-3 bg-black/40 rounded-full overflow-hidden">
+                  <div class="h-full bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full transition-all duration-700" id="magrathea-bar" style="width: 4.3%;"></div>
+                </div>
+              </div>
+
+              <!-- Slim Framework -->
+              <div class="space-y-2">
+                <div class="flex justify-between text-xs font-semibold">
+                  <span class="text-gray-400">Slim Framework (Micro)</span>
+                  <span class="text-gray-300 font-mono" id="slim-val-label">4.2 ms</span>
+                </div>
+                <div class="w-full h-3 bg-black/40 rounded-full overflow-hidden">
+                  <div class="h-full bg-gray-600 rounded-full transition-all duration-700" id="slim-bar" style="width: 22.7%;"></div>
+                </div>
+              </div>
+
+              <!-- Laravel -->
+              <div class="space-y-2">
+                <div class="flex justify-between text-xs font-semibold">
+                  <span class="text-gray-400">Laravel v10</span>
+                  <span class="text-gray-300 font-mono" id="laravel-val-label">18.5 ms</span>
+                </div>
+                <div class="w-full h-3 bg-black/40 rounded-full overflow-hidden">
+                  <div class="h-full bg-gray-700 rounded-full transition-all duration-700" id="laravel-bar" style="width: 100%;"></div>
+                </div>
+              </div>
+
+              <!-- Symfony -->
+              <div class="space-y-2">
+                <div class="flex justify-between text-xs font-semibold">
+                  <span class="text-gray-400">Symfony Core v6</span>
+                  <span class="text-gray-300 font-mono" id="symfony-val-label">22.1 ms</span>
+                </div>
+                <div class="w-full h-3 bg-black/40 rounded-full overflow-hidden">
+                  <div class="h-full bg-gray-800 rounded-full transition-all duration-700" id="symfony-bar" style="width: 119.4%;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Getting Started / CLI Section -->
+    <section id="get-started" class="relative z-10 py-24 border-t border-white/5 scroll-mt-20">
+      <div class="max-w-4xl mx-auto px-6 sm:px-12 text-center space-y-10">
+        <div class="space-y-4">
+          <span class="text-cyan-400 font-mono text-xs uppercase tracking-widest font-semibold">Instant initialization</span>
+          <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white">Create Your Universe Today</h2>
+          <p class="text-gray-400 max-w-xl mx-auto leading-relaxed">
+            Begin building ultra-fast PHP APIs and robust web projects with Magrathea in three simple commands.
+          </p>
+        </div>
+
+        <div class="space-y-5 text-left max-w-2xl mx-auto">
+          <!-- Step 1 -->
+          <div class="rounded-xl border border-white/5 bg-[#0a0b0e] p-5 space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2.5">
+                <span class="text-xs bg-cyan-500/10 text-cyan-400 px-2.5 py-1 rounded-full font-mono font-bold">STEP 1</span>
+                <span class="text-sm font-semibold text-white">Install via Composer</span>
+              </div>
+              <button onclick="copyCommand('cmd-composer')" class="text-gray-500 hover:text-cyan-400 flex items-center gap-1 text-xs transition-colors">
+                <span class="material-icons text-base">content_copy</span>
+                <span>Copy</span>
+              </button>
+            </div>
+            <div class="p-3 bg-black/40 rounded border border-white/5 font-mono text-xs text-gray-300" id="cmd-composer">composer require platypustechnology/magrathea2</div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="rounded-xl border border-white/5 bg-[#0a0b0e] p-5 space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2.5">
+                <span class="text-xs bg-cyan-500/10 text-cyan-400 px-2.5 py-1 rounded-full font-mono font-bold">STEP 2</span>
+                <span class="text-sm font-semibold text-white">Initialize the visual admin</span>
+              </div>
+              <button onclick="copyCommand('cmd-admin')" class="text-gray-500 hover:text-cyan-400 flex items-center gap-1 text-xs transition-colors">
+                <span class="material-icons text-base">content_copy</span>
+                <span>Copy</span>
+              </button>
+            </div>
+            <div class="p-3 bg-black/40 rounded border border-white/5 font-mono text-xs text-gray-300" id="cmd-admin">php vendor/bin/magrathea-install</div>
+          </div>
+        </div>
+
+        <div class="pt-4 flex flex-wrap justify-center gap-6">
+          <a href="https://github.com/PlatypusTechnology/MagratheaPHP2" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 px-6 py-3.5 bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 transition-all text-white">
+            <span class="material-icons">star_outline</span>
+            <span>Star on GitHub</span>
+          </a>
+          <a href="https://www.platypusweb.com.br/magratheaphp2/docs/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 px-6 py-3.5 bg-cyan-500 text-black font-bold rounded-xl hover:bg-cyan-400 transition-all">
+            <span>Explore Full Documentation</span>
+            <span class="material-icons">import_contacts</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer Bar -->
+    <footer class="relative z-10 border-t border-white/5 bg-black/40 backdrop-blur-md">
+      <div class="max-w-7xl mx-auto px-6 sm:px-12 py-12 flex flex-col md:flex-row justify-between items-center gap-8 text-xs text-gray-500">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8">
+            <img src="assets/logo.png" alt="logo" class="w-full h-full" referrerpolicy="no-referrer" />
+          </div>
+          <div class="flex flex-col">
+            <span class="text-white font-bold uppercase tracking-wider">MAGRATHEA<span class="text-cyan-400">PHP</span></span>
+            <span class="text-[9px] text-gray-600 mt-0.5">Developed by Platypus Technology</span>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap gap-x-8 gap-y-4 justify-center">
+          <span>Built for PHP 8.1+</span>
+          <span>MIT Licensed</span>
+          <a href="https://github.com/PlatypusTechnology/MagratheaPHP2" target="_blank" rel="noopener noreferrer" class="hover:text-cyan-400 transition-colors">GitHub Repository</a>
+          <a href="https://www.platypusweb.com.br/magratheaphp2/docs/" target="_blank" rel="noopener noreferrer" class="hover:text-cyan-400 transition-colors">Documentation</a>
+        </div>
+
+        <div class="flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded-lg border border-white/5">
+          <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+          <span class="text-gray-400 font-mono text-[10px]">Stable Release v2.4.1</span>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Interactive script to power tabs, code mockups, copy, and admin simulation -->
+    <script>
+      // Mobile Nav Toggle
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const menuIcon = document.getElementById('menu-icon');
+
+      mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+        menuIcon.textContent = mobileMenu.classList.contains('hidden') ? 'menu' : 'close';
+      });
+
+      // Switch code tab on Hero mockup
+      function switchCodeTab(tab) {
+        // Remove active states
+        document.querySelectorAll('.code-tab-btn').forEach(btn => {
+          btn.classList.remove('active', 'text-cyan-400', 'bg-white/5', 'border', 'border-cyan-500/20');
+          btn.classList.add('text-gray-400');
+        });
+        document.querySelectorAll('.code-block').forEach(blk => blk.classList.add('hidden'));
+
+        // Add active states
+        const targetBtn = document.getElementById(`tab-btn-${tab}`);
+        targetBtn.classList.add('active', 'text-cyan-400', 'bg-white/5', 'border', 'border-cyan-500/20');
+        targetBtn.classList.remove('text-gray-400');
+        
+        document.getElementById(`code-${tab}`).classList.remove('hidden');
+      }
+
+      // Copy to clipboard helper
+      function copyCommand(elementId) {
+        const text = document.getElementById(elementId).innerText;
+        navigator.clipboard.writeText(text).then(() => {
+          alert('Command copied to clipboard!');
+        }).catch(err => {
+          console.error('Failed to copy text: ', err);
+        });
+      }
+
+      // Switch Visual Admin Console Tab
+      function switchAdminTab(tab) {
+        document.querySelectorAll('.admin-tab-btn').forEach(btn => {
+          btn.classList.remove('active', 'text-cyan-400', 'bg-cyan-400/5', 'border', 'border-cyan-500/20');
+          btn.classList.add('text-gray-400');
+        });
+        document.querySelectorAll('.admin-tab-content').forEach(content => content.classList.add('hidden'));
+
+        const targetBtn = document.getElementById(`admin-btn-${tab}`);
+        targetBtn.classList.add('active', 'text-cyan-400', 'bg-cyan-400/5', 'border', 'border-cyan-500/20');
+        targetBtn.classList.remove('text-gray-400');
+
+        document.getElementById(`admin-content-${tab}`).classList.remove('hidden');
+      }
+
+      // Simulate model generation
+      function simulateGenerate() {
+        const output = document.getElementById('generator-output');
+        output.classList.remove('hidden');
+        output.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+
+      // SQL Preset queries update
+      function updateQueryPreset() {
+        const select = document.getElementById('query-select');
+        const output = document.getElementById('terminal-output');
+        output.innerHTML = `<span class="text-gray-500 text-center">Preset loaded. Click "Execute Query" to analyze.</span>`;
+      }
+
+      // Simulate running SQL query
+      function simulateQueryRun() {
+        const select = document.getElementById('query-select').value;
+        const output = document.getElementById('terminal-output');
+        output.innerHTML = '';
+        
+        if (select === 'select') {
+          output.innerHTML = `
+            <div class="text-green-400">[Query executed in 0.08ms]</div>
+            <div class="text-gray-300 mt-1 font-bold">planets table output (2 records):</div>
+            <table class="w-full mt-2 border border-white/5 text-left text-[9px] text-gray-400">
+              <thead class="bg-white/5 text-white font-mono">
+                <tr>
+                  <th class="p-1 border-b border-white/5">id</th>
+                  <th class="p-1 border-b border-white/5">name</th>
+                  <th class="p-1 border-b border-white/5">diameter</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="p-1 border-b border-white/5">1</td>
+                  <td class="p-1 border-b border-white/5 text-cyan-300">Earth</td>
+                  <td class="p-1 border-b border-white/5">12,742 km</td>
+                </tr>
+                <tr>
+                  <td class="p-1">2</td>
+                  <td class="p-1 text-cyan-300">Jupiter</td>
+                  <td class="p-1">139,820 km</td>
+                </tr>
+              </tbody>
+            </table>
+          `;
+        } else if (select === 'count') {
+          output.innerHTML = `
+            <div class="text-green-400">[Query executed in 0.04ms]</div>
+            <div class="text-gray-300 mt-1">
+              Result: <span class="text-white font-bold font-mono">total_users: 14,208</span>
+            </div>
+          `;
+        } else {
+          output.innerHTML = `
+            <div class="text-red-400 font-bold">[MySQL Error 1146]</div>
+            <div class="text-red-300 mt-0.5">Table 'magrathea_db.non_existent_table' doesn't exist</div>
+          `;
+        }
+      }
+
+      // Toggle benchmarks metrics graph
+      function toggleBenchmarkMode(mode) {
+        const title = document.getElementById('graph-title-label');
+        const mBtn = document.getElementById('btn-bench-memory');
+        const lBtn = document.getElementById('btn-bench-latency');
+        
+        const mBar = document.getElementById('magrathea-bar');
+        const sBar = document.getElementById('slim-bar');
+        const lBar = document.getElementById('laravel-bar');
+        const syBar = document.getElementById('symfony-bar');
+
+        const mVal = document.getElementById('magrathea-val-label');
+        const sVal = document.getElementById('slim-val-label');
+        const lVal = document.getElementById('laravel-val-label');
+        const syVal = document.getElementById('symfony-val-label');
+
+        if (mode === 'memory') {
+          title.textContent = 'MEMORY FOOTPRINT (LOWER IS BETTER)';
+          mBtn.className = 'flex-1 text-center py-2 rounded-lg text-xs font-mono font-bold text-black bg-cyan-400 transition-all';
+          lBtn.className = 'flex-1 text-center py-2 rounded-lg text-xs font-mono font-medium text-gray-400 hover:text-white transition-all';
+
+          // Update values
+          mVal.textContent = '1.2 MB';
+          sVal.textContent = '3.8 MB';
+          lVal.textContent = '12.4 MB';
+          syVal.textContent = '15.1 MB';
+
+          // Update bar widths
+          mBar.style.width = '7.9%';
+          sBar.style.width = '25.1%';
+          lBar.style.width = '82.1%';
+          syBar.style.width = '100%';
+        } else {
+          title.textContent = 'REQUEST LATENCY (LOWER IS BETTER)';
+          lBtn.className = 'flex-1 text-center py-2 rounded-lg text-xs font-mono font-bold text-black bg-cyan-400 transition-all';
+          mBtn.className = 'flex-1 text-center py-2 rounded-lg text-xs font-mono font-medium text-gray-400 hover:text-white transition-all';
+
+          // Update values
+          mVal.textContent = '0.8 ms';
+          sVal.textContent = '4.2 ms';
+          lVal.textContent = '18.5 ms';
+          syVal.textContent = '22.1 ms';
+
+          // Update bar widths
+          mBar.style.width = '4.3%';
+          sBar.style.width = '22.7%';
+          lBar.style.width = '100%';
+          syBar.style.width = '119.4%';
+        }
+      }
+    </script>
+  </body>
+</html>
