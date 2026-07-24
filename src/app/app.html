@@ -122,7 +122,7 @@
         <div class="flex gap-2">
           <button (click)="switchCodeTab('routing')" [class]="codeTab() === 'routing' ? 'px-3 py-1 rounded text-xs font-mono font-medium text-cyan-400 bg-white/5 border border-cyan-500/20' : 'px-3 py-1 rounded text-xs font-mono font-medium text-gray-400 hover:text-white transition-colors'">index.php</button>
           <button (click)="switchCodeTab('config')" [class]="codeTab() === 'config' ? 'px-3 py-1 rounded text-xs font-mono font-medium text-cyan-400 bg-white/5 border border-cyan-500/20' : 'px-3 py-1 rounded text-xs font-mono font-medium text-gray-400 hover:text-white transition-colors'">magrathea.conf</button>
-          <button (click)="switchCodeTab('orm')" [class]="codeTab() === 'orm' ? 'px-3 py-1 rounded text-xs font-mono font-medium text-cyan-400 bg-white/5 border border-cyan-500/20' : 'px-3 py-1 rounded text-xs font-mono font-medium text-gray-400 hover:text-white transition-colors'">PlanetModel.php</button>
+          <button (click)="switchCodeTab('orm')" [class]="codeTab() === 'orm' ? 'px-3 py-1 rounded text-xs font-mono font-medium text-cyan-400 bg-white/5 border border-cyan-500/20' : 'px-3 py-1 rounded text-xs font-mono font-medium text-gray-400 hover:text-white transition-colors'">Planet.php</button>
         </div>
       </div>
       
@@ -132,34 +132,37 @@
         @if (codeTab() === 'routing') {
           <div class="space-y-1">
             <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">1</span><span class="text-purple-400">&lt;?php</span></div>
-            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">2</span><span class="text-purple-400">use</span> <span class="text-blue-300">Magrathea\Magrathea</span>;</div>
+            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">2</span><span><span class="text-purple-400">use</span> <span class="text-blue-300">Magrathea2\MagratheaApi</span>;</span></div>
             <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">3</span><span></span></div>
-            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">4</span><span class="text-blue-400">$app</span> = <span class="text-purple-400">new</span> <span class="text-yellow-200">Magrathea</span>();</div>
+            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">4</span><span><span class="text-purple-400">require</span> <span class="text-orange-300">"../app/_inc.php"</span>; <span class="text-gray-500">// Magrathea bootstrap</span></span></div>
             <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">5</span><span></span></div>
             <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">6</span><span class="text-gray-500">// Easily build elegant, fast routes</span></div>
-            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">7</span><span class="text-blue-400">$app</span>-&gt;<span class="text-emerald-400">route</span>(<span class="text-orange-300">'/'</span>, <span class="text-purple-400 font-semibold">function</span>() &#123;</div>
-            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">8</span><span class="text-purple-400">&nbsp;&nbsp;&nbsp;&nbsp;return</span> <span class="text-orange-300">"Planets built by Magrathea."</span>;</div>
-            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">9</span><span>&#125;);</span></div>
-            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">10</span><span></span></div>
-            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">11</span><span class="text-blue-400">$app</span>-&gt;<span class="text-emerald-400">route</span>(<span class="text-orange-300">'/planet/:id'</span>, <span class="text-orange-300">'Planet@get'</span>);</div>
-            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">12</span><span class="text-blue-400">$app</span>-&gt;<span class="text-emerald-400">run</span>();</div>
+            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">7</span><span><span class="text-blue-400">$api</span> = <span class="text-purple-400">new</span> <span class="text-yellow-200">MagratheaApi</span>();</span></div>
+            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">8</span><span><span class="text-blue-400">$planets</span> = <span class="text-purple-400">new</span> <span class="text-yellow-200">PlanetApiControl</span>();</span></div>
+            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">9</span><span></span></div>
+            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">10</span><span><span class="text-blue-400">$api</span>-&gt;<span class="text-emerald-400">Add</span>(<span class="text-orange-300">"GET"</span>, <span class="text-orange-300">"planets"</span>, <span class="text-blue-400">$planets</span>, <span class="text-orange-300">"List"</span>);</span></div>
+            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">11</span><span><span class="text-blue-400">$api</span>-&gt;<span class="text-emerald-400">Add</span>(<span class="text-orange-300">"GET"</span>, <span class="text-orange-300">"planets/:id"</span>, <span class="text-blue-400">$planets</span>, <span class="text-orange-300">"Read"</span>);</span></div>
+            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">12</span><span><span class="text-blue-400">$api</span>-&gt;<span class="text-emerald-400">Run</span>();</span></div>
           </div>
         }
 
         <!-- Config Code -->
         @if (codeTab() === 'config') {
           <div class="space-y-1">
-            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">1</span><span class="text-amber-500">[development]</span></div>
-            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">2</span><span class="text-blue-300">db_host</span> = <span class="text-orange-300">"localhost"</span></div>
-            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">3</span><span class="text-blue-300">db_name</span> = <span class="text-orange-300">"magrathea_db"</span></div>
-            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">4</span><span class="text-blue-300">db_user</span> = <span class="text-orange-300">"root"</span></div>
-            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">5</span><span class="text-blue-300">db_pass</span> = <span class="text-orange-300">"root_password"</span></div>
-            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">6</span><span></span></div>
-            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">7</span><span class="text-amber-500">[production]</span></div>
-            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">8</span><span class="text-blue-300">db_host</span> = <span class="text-orange-300">"10.0.0.8"</span></div>
-            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">9</span><span class="text-blue-300">db_name</span> = <span class="text-orange-300">"magrathea_production"</span></div>
-            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">10</span><span class="text-blue-300">db_user</span> = <span class="text-orange-300">"prod_admin"</span></div>
-            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">11</span><span class="text-blue-300">db_pass</span> = <span class="text-orange-300">"m&#64;gr&#64;th3&#64;_str0ng!"</span></div>
+            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">1</span><span class="text-amber-500">[general]</span></div>
+            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">2</span><span>&nbsp;&nbsp;<span class="text-blue-300">use_environment</span> = <span class="text-orange-300">"dev"</span></span></div>
+            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">3</span><span></span></div>
+            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">4</span><span class="text-amber-500">[dev]</span></div>
+            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">5</span><span>&nbsp;&nbsp;<span class="text-blue-300">db_host</span> = <span class="text-orange-300">"localhost"</span></span></div>
+            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">6</span><span>&nbsp;&nbsp;<span class="text-blue-300">db_name</span> = <span class="text-orange-300">"magrathea_db"</span></span></div>
+            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">7</span><span>&nbsp;&nbsp;<span class="text-blue-300">db_user</span> = <span class="text-orange-300">"root"</span></span></div>
+            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">8</span><span>&nbsp;&nbsp;<span class="text-blue-300">db_pass</span> = <span class="text-orange-300">"root_password"</span></span></div>
+            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">9</span><span></span></div>
+            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">10</span><span class="text-amber-500">[production]</span></div>
+            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">11</span><span>&nbsp;&nbsp;<span class="text-blue-300">db_host</span> = <span class="text-orange-300">"10.0.0.8"</span></span></div>
+            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">12</span><span>&nbsp;&nbsp;<span class="text-blue-300">db_name</span> = <span class="text-orange-300">"magrathea_production"</span></span></div>
+            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">13</span><span>&nbsp;&nbsp;<span class="text-blue-300">db_user</span> = <span class="text-orange-300">"prod_admin"</span></span></div>
+            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">14</span><span>&nbsp;&nbsp;<span class="text-blue-300">db_pass</span> = <span class="text-orange-300">"$=DB_PASSWORD"</span></span></div>
           </div>
         }
 
@@ -167,19 +170,20 @@
         @if (codeTab() === 'orm') {
           <div class="space-y-1">
             <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">1</span><span class="text-purple-400">&lt;?php</span></div>
-            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">2</span><span class="text-purple-400 font-semibold">class</span> <span class="text-yellow-200">Planet</span> <span class="text-purple-400">extends</span> <span class="text-blue-300">\Magrathea\MagratheaModel</span> &#123;</div>
-            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">3</span><span class="text-purple-400">&nbsp;&nbsp;&nbsp;&nbsp;public</span> <span class="text-blue-400">$id</span>, <span class="text-blue-400">$name</span>, <span class="text-blue-400">$diameter</span>;</div>
-            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">4</span><span class="text-purple-400">&nbsp;&nbsp;&nbsp;&nbsp;protected static</span> <span class="text-blue-400">$dbTable</span> = <span class="text-orange-300">"planets"</span>;</div>
-            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">5</span>&#125;</div>
-            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">6</span><span></span></div>
-            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">7</span><span class="text-gray-500">// Seamlessly execute Object queries</span></div>
-            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">8</span><span class="text-blue-400">$earth</span> = <span class="text-yellow-200">Planet</span>::<span class="text-emerald-400">Get</span>(<span class="text-amber-400">1</span>);</div>
-            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">9</span><span class="text-blue-400">$earth</span>-&gt;<span class="text-blue-300">name</span> = <span class="text-orange-300">"New Earth"</span>;</div>
-            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">10</span><span class="text-blue-400">$earth</span>-&gt;<span class="text-emerald-400">Save</span>();</div>
+            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">2</span><span><span class="text-purple-400 font-semibold">class</span> <span class="text-yellow-200">Planet</span> <span class="text-purple-400">extends</span> <span class="text-blue-300">\Magrathea2\MagratheaModel</span> &#123;</span></div>
+            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">3</span><span>&nbsp;&nbsp;<span class="text-purple-400">public</span> <span class="text-blue-400">$id</span>, <span class="text-blue-400">$name</span>, <span class="text-blue-400">$diameter</span>;</span></div>
+            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">4</span><span>&nbsp;&nbsp;<span class="text-purple-400">public function</span> <span class="text-emerald-400">MagratheaStart</span>() &#123;</span></div>
+            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">5</span><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-blue-400">$this</span>-&gt;<span class="text-blue-300">dbTable</span> = <span class="text-orange-300">"planets"</span>;</span></div>
+            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">6</span><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-blue-400">$this</span>-&gt;<span class="text-blue-300">dbValues</span>[<span class="text-orange-300">"id"</span>] = <span class="text-orange-300">"int"</span>;</span></div>
+            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">7</span><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-blue-400">$this</span>-&gt;<span class="text-blue-300">dbValues</span>[<span class="text-orange-300">"name"</span>] = <span class="text-orange-300">"string"</span>;</span></div>
+            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">8</span><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-blue-400">$this</span>-&gt;<span class="text-blue-300">dbValues</span>[<span class="text-orange-300">"diameter"</span>] = <span class="text-orange-300">"float"</span>;</span></div>
+            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">9</span><span>&nbsp;&nbsp;&#125;</span></div>
+            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">10</span><span>&#125;</span></div>
             <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">11</span><span></span></div>
-            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">12</span><span class="text-blue-400">$largePlanets</span> = <span class="text-yellow-200">Planet</span>::<span class="text-emerald-400">Query</span>()</div>
-            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">13</span>&nbsp;&nbsp;&nbsp;&nbsp;-&gt;<span class="text-emerald-400">Where</span>(<span class="text-orange-300">"diameter > 50000"</span>)</div>
-            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">14</span>&nbsp;&nbsp;&nbsp;&nbsp;-&gt;<span class="text-emerald-400">Run</span>();</div>
+            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">12</span><span class="text-gray-500">// Objects map straight to table rows</span></div>
+            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">13</span><span><span class="text-blue-400">$earth</span> = <span class="text-purple-400">new</span> <span class="text-yellow-200">Planet</span>(<span class="text-amber-400">1</span>); <span class="text-gray-500">// loads id 1</span></span></div>
+            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">14</span><span><span class="text-blue-400">$earth</span>-&gt;<span class="text-blue-300">name</span> = <span class="text-orange-300">"New Earth"</span>;</span></div>
+            <div class="flex gap-4"><span class="text-gray-600 select-none w-5 text-right font-semibold">15</span><span><span class="text-blue-400">$earth</span>-&gt;<span class="text-emerald-400">Save</span>();</span></div>
           </div>
         }
       </div>
@@ -371,9 +375,11 @@
                       <span class="material-icons text-emerald-400 text-sm">check_circle</span>
                       <span>Models Generated successfully!</span>
                     </div>
-                    <div>Created file: <span class="text-white">models/Planet.php</span></div>
-                    <div>Created file: <span class="text-white">models/User.php</span></div>
-                    <div class="text-gray-500">Database schema config synced perfectly.</div>
+                    <div>Created file: <span class="text-white">features/Planet/Base/PlanetBase.php</span></div>
+                    <div>Created file: <span class="text-white">features/Planet/Planet.php</span></div>
+                    <div>Created file: <span class="text-white">features/User/Base/UserBase.php</span></div>
+                    <div>Created file: <span class="text-white">features/User/User.php</span></div>
+                    <div class="text-gray-500">Base classes can be regenerated from the admin anytime.</div>
                   </div>
                 }
               </div>
@@ -470,8 +476,8 @@
                   <div class="text-gray-500">[2026-07-20 09:42:01] Magrathea Config parsed successfully. Env: [development]</div>
                   <div class="text-cyan-400">[2026-07-20 09:42:01] SQL Connection initialized to localhost:3306</div>
                   <div class="text-gray-500">[2026-07-20 09:42:02] Autoloader mapped 14 active classes correctly.</div>
-                  <div class="text-purple-400">[2026-07-20 09:42:05] Router Match: GET '/' mapped to Home&#64;index</div>
-                  <div class="text-gray-500">[2026-07-20 09:42:05] Controller rendered template view in 0.22ms</div>
+                  <div class="text-purple-400">[2026-07-20 09:42:05] Api route matched: GET planets/:id -&gt; PlanetApiControl::Read</div>
+                  <div class="text-gray-500">[2026-07-20 09:42:05] JSON response served in 0.22ms</div>
                   <div class="text-amber-400">[2026-07-20 09:42:12] Mail Queue Daemon started on background process.</div>
                 </div>
               </div>
@@ -607,7 +613,7 @@
       <span class="text-cyan-400 font-mono text-xs uppercase tracking-widest font-semibold font-bold">Instant initialization</span>
       <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white">Create Your Universe Today</h2>
       <p class="text-gray-400 max-w-xl mx-auto leading-relaxed">
-        Begin building ultra-fast PHP APIs and robust web projects with Magrathea in three simple commands.
+        Begin building ultra-fast PHP APIs and robust web projects with Magrathea in two simple steps.
       </p>
     </div>
 
@@ -619,12 +625,12 @@
             <span class="text-xs bg-cyan-500/10 text-cyan-400 px-2.5 py-1 rounded-full font-mono font-bold">STEP 1</span>
             <span class="text-sm font-semibold text-white">Install via Composer</span>
           </div>
-          <button (click)="copyCommand('composer require platypustechnology/magrathea2')" class="text-gray-500 hover:text-cyan-400 flex items-center gap-1 text-xs transition-colors cursor-pointer">
+          <button (click)="copyCommand('composer require platypustechnology/magratheaphp2')" class="text-gray-500 hover:text-cyan-400 flex items-center gap-1 text-xs transition-colors cursor-pointer">
             <span class="material-icons text-base">content_copy</span>
             <span>Copy</span>
           </button>
         </div>
-        <div class="p-3 bg-black/40 rounded border border-white/5 font-mono text-xs text-gray-300">composer require platypustechnology/magrathea2</div>
+        <div class="p-3 bg-black/40 rounded border border-white/5 font-mono text-xs text-gray-300">composer require platypustechnology/magratheaphp2</div>
       </div>
 
       <!-- Step 2 -->
@@ -634,12 +640,18 @@
             <span class="text-xs bg-cyan-500/10 text-cyan-400 px-2.5 py-1 rounded-full font-mono font-bold">STEP 2</span>
             <span class="text-sm font-semibold text-white">Initialize the visual admin</span>
           </div>
-          <button (click)="copyCommand('php vendor/bin/magrathea-install')" class="text-gray-500 hover:text-cyan-400 flex items-center gap-1 text-xs transition-colors cursor-pointer">
+          <button (click)="copyCommand(adminInitSnippet)" class="text-gray-500 hover:text-cyan-400 flex items-center gap-1 text-xs transition-colors cursor-pointer">
             <span class="material-icons text-base">content_copy</span>
             <span>Copy</span>
           </button>
         </div>
-        <div class="p-3 bg-black/40 rounded border border-white/5 font-mono text-xs text-gray-300">php vendor/bin/magrathea-install</div>
+        <div class="p-3 bg-black/40 rounded border border-white/5 font-mono text-xs text-gray-300 space-y-0.5">
+          <div><span class="text-purple-400">&lt;?php</span> <span class="text-gray-500">// public/admin.php</span></div>
+          <div><span class="text-purple-400">require</span> <span class="text-orange-300">"bootstrap.php"</span>; <span class="text-gray-500">// Magrathea setup + StartSession()</span></div>
+          <div>&nbsp;</div>
+          <div><span class="text-purple-400">use</span> <span class="text-blue-300">Magrathea2\Admin\AdminManager</span>;</div>
+          <div><span class="text-yellow-200">AdminManager</span>::<span class="text-emerald-400">Instance</span>()-&gt;<span class="text-emerald-400">Start</span>(<span class="text-purple-400">new</span> <span class="text-yellow-200">MyAppAdmin</span>());</div>
+        </div>
       </div>
     </div>
 

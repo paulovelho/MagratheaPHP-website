@@ -30,6 +30,15 @@ export class App implements OnInit {
       });
   }
 
+  // Copyable snippet for the "Initialize the visual admin" step
+  readonly adminInitSnippet: string = [
+    '<?php // public/admin.php',
+    'require "bootstrap.php"; // Magrathea setup + StartSession()',
+    '',
+    'use Magrathea2\\Admin\\AdminManager;',
+    'AdminManager::Instance()->Start(new MyAppAdmin());',
+  ].join('\n');
+
   // Navigation
   mobileMenuOpen = signal<boolean>(false);
 
