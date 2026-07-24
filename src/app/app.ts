@@ -1,15 +1,18 @@
 import {ChangeDetectionStrategy, Component, OnInit, signal} from '@angular/core';
 
 type BenchmarkModeId = 'throughput' | 'time' | 'memory';
-type BenchmarkMetric = { value: string; pct: number };
-type BenchmarkRow = {
+interface BenchmarkMetric {
+  value: string;
+  pct: number;
+}
+interface BenchmarkRow {
   name: string;
   main?: boolean;
   barClass: string;
   throughput: BenchmarkMetric;
   time: BenchmarkMetric;
   memory: BenchmarkMetric;
-};
+}
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
