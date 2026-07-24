@@ -1,0 +1,11 @@
+# This folder is published as read-only reference material alongside the
+# static site build. None of the PHP here is meant to run on this server —
+# force it to be served as plain text instead of executed, regardless of
+# whatever PHP handler the parent vhost/.htaccess configures.
+<FilesMatch "\.(php|phtml|php[3-8]?)$">
+  SetHandler default-handler
+  ForceType text/plain
+</FilesMatch>
+
+# Let visitors browse the harness instead of hitting a 403.
+Options +Indexes -ExecCGI

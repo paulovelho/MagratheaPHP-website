@@ -29,6 +29,11 @@
               {
                 "glob": "**/*",
                 "input": "public"
+              },
+              {
+                "glob": "**/*",
+                "input": "benchmark",
+                "output": "benchmark"
               }
             ],
             "styles": [
